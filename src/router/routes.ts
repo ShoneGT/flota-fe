@@ -16,7 +16,48 @@ const routes: RouteRecordRaw[] = [
     beforeEnter: AuthGuard,
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'users', component: () => import('pages/Users.vue') },
+      {
+        path: 'users',
+        component: () => import('pages/Users/Index.vue'),
+        children: [
+          {
+            path: '',
+            component:  import('pages/Users/Users.vue'),
+          },
+          {
+            path: 'profile/:id',
+            component:  import('pages/Users/UserProfile.vue'),
+          }
+        ]
+      },
+      {
+        path: 'trucks',
+        component: () => import('pages/Trucks/Index.vue'),
+        children: [
+          {
+            path: '',
+            component:  import('pages/Trucks/Trucks.vue'),
+          },
+          {
+            path: 'profile/:id',
+            component:  import('pages/Users/UserProfile.vue'),
+          }
+        ]
+      },
+      {
+        path: 'loads',
+        component: () => import('pages/Loads/Index.vue'),
+        children: [
+          {
+            path: '',
+            component:  import('pages/Loads/Loads.vue'),
+          },
+          {
+            path: 'profile/:id',
+            component:  import('pages/Users/UserProfile.vue'),
+          }
+        ]
+      },
       { path: 'drivers', component: () => import('pages/Drivers.vue') }
     ],
   },

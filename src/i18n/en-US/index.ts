@@ -8,4 +8,13 @@ export default {
   lastName: 'Last name',
   addDriver: 'Add driver',
   addUser: 'Add user',
+  email: 'Email',
+  password: 'Password',
+  phone: 'Phone',
+  state: 'State',
+  address: 'Address',
+  city: 'City',
+  dob: 'Date of birth',
+  note: 'Note',
+  actions: 'City',
 };

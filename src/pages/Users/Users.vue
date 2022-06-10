@@ -1,58 +1,50 @@
 <template>
-<div class="q-pa-md">
-  <q-btn color="grey-5" no-caps @click="$refs.createUser.showDialog = true">Add new</q-btn>
-</div>
-<q-separator/>
-  <q-page padding>
-    <!-- content -->
-     <q-table
-       flat
-       separator="cell"
-       :rows="users"
-       :columns="columns"
-       row-key="name"
-    >
-       <template v-slot:header="props">
-         <q-tr :props="props">
-           <q-th
-             v-for="col in props.cols"
-             :key="col.name"
-             :props="props"
-             class="text-italic text-purple"
-           >
-             {{ col.label }}
-           </q-th>
-         </q-tr>
-       </template>
+  <data-provider
+    ref="dataProvider"
+    :data-model="dataModel"
+    v-slot="{ data, loading, saveData }"
+    @SavedData="handleCreate"
+  >
+    <div class="q-pa-md">
+      <q-btn color="grey-5" no-caps @click="handleCreateForm(saveData)">Add new</q-btn>
+    </div>
+    <q-separator/>
+    <q-page padding>
+      <!-- content -->
+      <data-table :columns="columns" :rows="data.users" :loading="loading" />
 
-       <template v-slot:body-cell-actions="props">
-         <q-td :props="props">
-           <div>
-             <q-badge color="purple" :label="props.value" />
-           </div>
-           <div class="my-table-details">
-             {{ props.row.details }}
-           </div>
-         </q-td>
-       </template>
-     </q-table>
+      <create-user
+        @formData="saveData(routes.user, $event)"
+        ref="createUser"
+      />
 
-    <create-user @UserCreated="fetchUsers" ref="createUser" />
-
-  </q-page>
+    </q-page>
+  </data-provider>
 </template>
 
 <script>
+import DataProvider from 'src/components/DataProvider'
+import DataTable from 'src/components/DataTable.vue';
 import CreateUser from 'src/components/Users/CreateUser.vue'
-import {api} from '../boot/axios';
 import { routes } from 'src/utils/ApiRoutes'
 
 export default {
   name: 'DriversView',
-  components: {CreateUser},
+  components: {
+    DataProvider,
+    DataTable,
+    CreateUser
+  },
   data () {
     return {
+      dataModel: [
+        {
+          url: 'user',
+          dataValue: 'users'
+        },
+      ],
       users: [],
+      routes,
       columns: [
         {
           name: 'firstName',
@@ -128,21 +120,14 @@ export default {
     }
   },
   methods: {
-    fetchUsers () {
-      console.log('fetch')
-      api.get(routes.user).then(res => {
-        console.log('users'. res)
-        this.users = res.data
-      }, err => {
-        console.log(err)
-        const { response } = err
-        console.log(response)
-      })
+    handleCreateForm () {
+      this.$refs.createUser.showDialog = true
+    },
+    handleCreate () {
+      this.$refs.createUser.showDialog = false
+      this.$refs.createUser.clearForm()
+      this.$refs.dataProvider.renderData(this.dataModel)
     }
   },
-  created () {
-    console.log('created')
-    this.fetchUsers()
-  }
 }
 </script>

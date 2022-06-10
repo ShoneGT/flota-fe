@@ -1,17 +1,12 @@
 import { api } from 'src/boot/axios'
 
-export default {
+import { defineComponent } from 'vue';
+
+export default defineComponent ({
   props: {
     dataModel: {
       type: Array,
       required: true,
-      // default: () => {
-      //   return [{
-      //     url: '',
-      //     dataValue: '',
-      //     params: '',
-      //   }]
-      // }
     }
   },
   data: () => ({
@@ -21,6 +16,7 @@ export default {
   }),
   methods: {
     saveData (url, formData) {
+      console.log('savedaa', url, formData)
       this.loadingSave = true
       api.post(url, formData)
         .then(({ data }) => {
@@ -31,19 +27,23 @@ export default {
           this.$emit('SavedData', data)
           this.loadingSave = false
         }, err => {
-          this.$emit('SavedDataError', err)
+          const { response } = err
+          console.log('err', response)
+
+          this.$q.notify({
+            message: response.data.message[0],
+            color: 'red-4'
+          })
           this.loadingSave = false
-          console.log(err)
-          console.log(err.response)
         })
     },
-
-    renderData () {
-      this.dataModel.forEach(el => {
+    renderData (data) {
+      data.forEach(el => {
         this.fetchData(el.url, el.dataValue, el.params)
       })
     },
     fetchData (url, dataValue, params) {
+      this.loaded = false
       api.get(url, {params})
         .then(({ data })=> {
           this.data[dataValue] = data
@@ -57,15 +57,14 @@ export default {
     }
   },
   created () {
-    this.renderData()
+    this.renderData(this.dataModel)
   },
   render () {
-    const slot = this.$scopedSlots.default({
+    return this.$slots.default({
       loading: !this.loaded,
       data: this.data,
       saveData: this.saveData,
       loadingSave: this.loadingSave,
     })
-    return Array.isArray(slot) ? slot[0] : slot;
   }
-}
+})

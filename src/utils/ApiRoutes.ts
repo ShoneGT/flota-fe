@@ -1,4 +1,6 @@
 export const routes = {
   login: 'auth/login',
-  user: 'user'
+  user: 'user',
+  truck: 'truck',
+  load: 'load',
 }

@@ -2,54 +2,54 @@
   <q-dialog v-model="showDialog" position="right" full-height>
     <q-card>
       <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">{{ $t('addUser') }}</div>
+        <div class="text-h6">{{ $t('createTruck') }}</div>
         <q-space />
         <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
 
       <q-card-section style="width: 400px">
-        <!-- First Name -->
+        <!-- Model -->
         <q-input
           filled
-          v-model="form.firstName"
-          :label="$t('firstName')"
+          v-model="form.model"
+          :label="$t('model')"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
-        <!-- Last Name -->
+        <!-- Make -->
         <q-input
           filled
-          v-model="form.lastName"
-          :label="$t('lastName')"
+          v-model="form.make"
+          :label="$t('make')"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
 
-        <!-- Email -->
+        <!-- Year -->
         <q-input
           filled
           type="email"
-          v-model="form.email"
-          :label="$t('email')"
+          v-model="form.year"
+          :label="$t('year')"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
 
-        <!-- Password -->
+        <!-- Miles -->
         <q-input
           filled
-          type="password"
-          v-model="form.password"
-          :label="$t('password')"
+          type="number"
+          v-model="form.miles"
+          :label="$t('miles')"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
 
-        <!-- Phone -->
+        <!-- Vin -->
         <q-input
           filled
-          v-model="form.phone"
-          :label="$t('phone')"
+          v-model="form.vin"
+          :label="$t('vin')"
           lazy-rules
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
@@ -72,20 +72,10 @@
           :rules="[ val => val && val.length > 0 || 'Please type something']"
         />
 
-        <!-- DOB -->
-        <q-input
-          filled
-          v-model="form.dob"
-          :label="$t('dob')"
-          lazy-rules
-          :rules="[ val => val && val.length > 0 || 'Please type something']"
-        />
-
-
       </q-card-section>
 
       <q-card-actions align="right" class="bg-white text-teal">
-        <q-btn @click="createUser">Create</q-btn>
+        <q-btn @click="create">Create</q-btn>
       </q-card-actions>
 
 
@@ -96,23 +86,23 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { CreateUserDto } from 'components/Users/create-user.dto'
+import { CreateTruckDto } from 'components/Trucks/create-truck.dto'
 
 export default defineComponent({
   // name: 'ComponentName'
   data () {
     return {
       showDialog: false,
-      form: {} as Partial<CreateUserDto>
+      form: {} as Partial<CreateTruckDto>
     }
   },
   methods: {
-    createUser () {
-      let formData = Object.assign(this.form, CreateUserDto)
+    create () {
+      let formData = Object.assign(this.form, CreateTruckDto)
       this.$emit('formData', formData)
     },
     clearForm () {
-      this.form = {} as Partial<CreateUserDto>
+      this.form = {} as Partial<CreateTruckDto>
     }
   }
 })
