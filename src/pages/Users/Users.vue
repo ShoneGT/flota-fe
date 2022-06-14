@@ -6,7 +6,7 @@
     @SavedData="handleCreate"
   >
     <div class="q-pa-md">
-      <q-btn color="grey-5" no-caps @click="handleCreateForm(saveData)">Add new</q-btn>
+      <q-btn color="orange-5" no-caps @click="handleCreateForm(saveData)">{{ $t('addNew') }}</q-btn>
     </div>
     <q-separator/>
     <q-page padding>

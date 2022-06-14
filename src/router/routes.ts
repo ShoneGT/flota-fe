@@ -58,7 +58,21 @@ const routes: RouteRecordRaw[] = [
           }
         ]
       },
-      { path: 'drivers', component: () => import('pages/Drivers.vue') }
+      { path: 'drivers', component: () => import('pages/Drivers.vue') },
+      {
+        path: 'clients',
+        component: () => import('pages/Clients/Index.vue'),
+        children: [
+          {
+            path: '',
+            component:  import('pages/Clients/Clients.vue'),
+          },
+          {
+            path: 'profile/:id',
+            component:  import('pages/Users/UserProfile.vue'),
+          }
+        ]
+      },
     ],
   },
 

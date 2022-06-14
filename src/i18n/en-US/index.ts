@@ -16,5 +16,6 @@ export default {
   city: 'City',
   dob: 'Date of birth',
   note: 'Note',
-  actions: 'City',
+  actions: 'Actions',
+  addNew: 'Add new',
 };

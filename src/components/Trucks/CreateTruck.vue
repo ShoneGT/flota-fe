@@ -74,8 +74,8 @@
 
       </q-card-section>
 
-      <q-card-actions align="right" class="bg-white text-teal">
-        <q-btn @click="create">Create</q-btn>
+      <q-card-actions align="right" class="bg-white text-orange-5">
+        <q-btn  @click="create">Create</q-btn>
       </q-card-actions>
 
 

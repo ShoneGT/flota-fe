@@ -1,13 +1,13 @@
 <template>
   <q-dialog v-model="showDialog" position="right" full-height>
     <q-card>
-      <q-card-section class="row items-center q-pb-none">
-        <div class="text-h6">{{ $t('createTruck') }}</div>
+      <q-card-section class="row items-center q-pb-none q-ma-md">
+        <div class="text-h6">{{ $t('createLoad') }}</div>
         <q-space />
         <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
 
-      <q-card-section style="width: 400px">
+      <q-card-section style="width: 400px" class="q-ma-md">
         <!-- Model -->
         <q-input
           filled
@@ -64,7 +64,7 @@
 
       </q-card-section>
 
-      <q-card-actions align="right" class="bg-white text-teal">
+      <q-card-actions align="right" class="bg-white text-teal q-ma-lg">
         <q-btn @click="create">Create</q-btn>
       </q-card-actions>
 
